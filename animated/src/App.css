@@ -1,0 +1,484 @@
+.App {
+  text-align: center;
+}
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #2c3e50; /* Ton bleu foncé */
+  z-index: 10;
+}
+.logo {
+  width: 150px;
+  margin-top: 10px;
+}
+.main-layout {
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden; /* Empêche le scroll horizontal parasite */
+}
+.page-content {
+  margin-left: 250px; 
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 250px);
+}
+.App-header {
+  width: 100%;
+  justify-content: space-between;
+  font-weight: bold;
+  height: 70px;
+  background-color: #ffffff; /* Fond blanc comme sur ta capture */
+  border-bottom: 1px solid #f1f5f9; /* Ligne fine de séparation en bas */
+  display: flex; 
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 24px; /* Espace sur les côtés */
+  gap: 16px; /* Espace entre le bouton rond et la barre de recherche */
+}
+/* 1. Le bouton rond à gauche */
+.toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Rend le bouton parfaitement rond */
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #1e293b;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  transform: translateX(290px);
+}
+
+.toggle-btn:hover {
+  background-color: #f8fafc; /* Léger gris au survol */
+}
+
+/* 2. Le conteneur de la barre de recherche */
+.search-container {
+  display: flex;
+  transform: translateX(285px);
+  align-items: center;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 30px; /* Bords très arrondis (capsule) */
+  padding: 8px 20px;
+  width: 250px; /* Largeur de la barre */
+}
+
+/* L'icône loupe à gauche de l'input */
+.search-icon {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-right: 8px;
+}
+
+/* Le champ de texte invisible (sans bordures pour ne pas casser le style) */
+.search-input {
+  border: none;
+  outline: none; /* Enlève la bordure bleue par défaut au clic */
+  width: 100%;
+  font-size: 15px;
+  color: #334155;
+}
+
+.search-input::placeholder {
+  color: #94a3b8; /* Couleur grise du texte "Search" */
+}
+
+/* 3. Le petit badge raccourci "CTRL D" à droite */
+.shortcut-badge {
+  background-color: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap; /* Empêche le texte de sauter à la ligne */
+}
+/* Pousse tout le groupe vers l'extrémité droite du header */
+.header-right {
+  margin-left: auto; /* La commande magique pour coller à droite */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espace uniforme entre chaque élément */
+}
+
+/* Style des boutons ronds d'icônes (Cloche, Panier, Engrenage) */
+.icon-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.2s;
+}
+
+.icon-btn:hover {
+  background-color: #f8fafc;
+}
+
+/* Le petit point de notification rouge */
+.notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: #ef4444; /* Rouge vif */
+  border-radius: 50%;
+  border: 1px solid #ffffff; /* Petit contour blanc pour détacher l'icône */
+}
+
+/* Le conteneur ovale Jour/Nuit */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 30px;
+  padding: 3px;
+  gap: 4px;
+}
+
+/* Les boutons à l'intérieur du switch */
+.theme-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* État actif (Le bouton soleil sélectionné en jaune) */
+.theme-btn.active {
+  background-color: #ffc107; /* Jaune orangé exact */
+}
+
+/* Le bloc contenant les infos du profil */
+.profile-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 0px 0px 0px 10px; /* Plus d'espace à gauche pour le texte */
+  background-color: #ffffff;
+  gap: 12px;
+}
+
+/* Alignement vertical du nom et de l'email */
+.profile-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.profile-email {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* L'image de profil ronde */
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover; /* Évite de déformer l'image */
+}
+/* --- DESIGN DE LA SIDENAV (STYLE URBIX) --- */
+
+.sidenav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: #1e2530; /* Fond très sombre / ardoise */
+  color: #94a3b8; /* Couleur du texte secondaire par défaut */
+  padding: 24px 16px;
+  font-family: 'Inter', sans-serif;
+  z-index: 10;
+}
+
+/* Titre de section (ex: MAIN) */
+.menu-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  padding-left: 12px;
+}
+
+.menu-list {
+  list-style: none;
+}
+
+.menu-item-wrapper {
+  margin-bottom: 8px;
+}
+
+/* L'en-tête d'un bouton de menu (ex: Dashboards) */
+.menu-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-icon {
+  font-size: 18px;
+}
+
+.menu-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Style quand le parent est actif (sélectionné/ouvert) */
+.active-parent {
+  background-color: #5a67d8; /* Joli bleu/violet comme sur ton modèle */
+  color: #ffffff !important;
+}
+
+/* La petite flèche à droite */
+.menu-arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+.menu-arrow.rotated {
+  transform: rotate(180deg); /* Aligne la flèche vers le bas ou le haut */
+}
+
+/* --- STYLE DES SOUS-MENUS --- */
+.sub-menu-list {
+  list-style: none;
+  padding-left: 16px; /* Décale le sous-menu vers la droite */
+  margin-top: 4px;
+}
+
+.sub-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #64748b; /* Couleur plus claire pour les sous-menus non actifs */
+  transition: color 0.2s;
+}
+
+.sub-menu-item:hover {
+  color: #94a3b8;
+}
+
+/* Le sous-menu actuellement sélectionné (ex: E-Commerce) */
+.active-child {
+  color: #5a67d8; /* Texte bleu/violet */
+  font-weight: 600;
+}
+
+/* Le petit rond discret devant le texte du sous-menu */
+.sub-menu-dot {
+  font-size: 10px;
+  opacity: 0.5;
+}
+.active-child .sub-menu-dot {
+  opacity: 1;
+}
+/* Conteneur en grille pour aligner les 3 cartes côte à côte de manière responsive */
+.stats-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding-right: 50px;
+  padding-bottom: 100px;
+  padding-top: 100px;
+  padding-left: 50px; /* Espace autour de la grille sous le header */
+  background-color: #f8fafc; /* Fond légèrement grisé pour faire ressortir les cartes blanches */
+}
+
+/* Style de base d'une carte */
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 16px; /* Beaux bords arrondis */
+  padding: 30px;
+  width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  /* Ombre très légère et moderne pour donner du relief */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Le petit carré arrondi qui contient l'icône à gauche */
+.stat-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+/* Personnalisation de la couleur des icônes (optionnel si tu utilises React Icons) */
+.blue-icon { color: #4f46e5; }
+.purple-icon { color: #6366f1; }
+
+/* Conteneur textuel */
+.stat-content {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+/* Ligne contenant le chiffre et la mini-courbe verte */
+.stat-number-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-number {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.trend-icon {
+  font-size: 16px;
+  color: #10b981; /* Vert de croissance */
+}
+
+/* Titre principal (ex: Today's Sales) */
+.stat-title {
+  font-size: 15px;
+  color: #475569;
+  font-weight: 500;
+  margin: 4px 0 2px 0;
+}
+
+/* Sous-texte (ex: Sales Increment Rate) */
+.stat-sub {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* Couleur verte spécifique pour les taux (+8%, +12%) */
+.green-text {
+  color: #10b981;
+  font-weight: 600;
+}
+/* Le conteneur principal de la bannière */
+.upgrade-banner {
+  background-color: #4f46e5; /* Le bleu/violet de la bannière */
+  border-radius: 16px;       /* Bords bien arrondis */
+  padding: 100px 40px;        /* Espace interne (haut/bas et gauche/droite) */
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto 30px auto; /* On remet à 0 le haut de base */
+  margin-top: -70px;
+  justify-content: space-between; /* Pousse l'image à gauche et le texte à droite */
+  align-items: center;       /* Centre verticalement les deux blocs */
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin-left: 60px;
+  width: 100%;               /* S'adapte à la largeur du parent */        /* Limite la largeur maximale si nécessaire */
+  height: 180px;             /* Hauteur fixe de la bannière */
+  overflow: hidden;          /* Évite que l'image dépasse grossièrement */
+}
+/* Zone de l'image à gauche */
+.banner-illustration {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.banner-illustration img {
+  height: 140px;             /* Ajuste la taille de l'illustration */
+  object-fit: contain;
+}
+
+/* Zone du texte et bouton à droite */
+.banner-content {
+  display: flex;
+  flex-direction: column;    /* Aligne le texte et le bouton verticalement */
+  align-items: flex-end;     /* Aligne tout le contenu vers la droite */
+  gap: 16px;                 /* Espace entre le paragraphe et le bouton */
+}
+
+/* Le texte descriptif */
+.banner-text {
+  color: #ffffff;
+  font-size: 16px;
+  font-family: sans-serif;   /* À adapter selon votre police */
+  text-align: right;         /* Aligne les lignes de texte à droite */
+  margin: 0;                 /* Supprime les marges par défaut du <p> */
+  line-height: 1.4;
+}
+
+/* Le bouton "Upgrade" */
+.banner-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff; /* Bordure fine blanche */
+  border-radius: 8px;        /* Coins légèrement arrondis pour le bouton */
+  padding: 8px 24px;         /* Taille interne du bouton */
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease; /* Transition douce pour l'effet de survol */
+}
+
+/* Effet au survol du bouton (optionnel mais recommandé) */
+.banner-btn:hover {
+  background-color: #ffffff;
+  color: #4f46e5;            /* Inverse les couleurs au survol */
+}
+
+
+
